@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.aksh.recipe.presentation.navigation.RecipeNavHost
 import com.aksh.recipe.presentation.screens.home.HomeScreen
 import com.aksh.recipe.ui.theme.RecipeTheme
 
@@ -21,7 +22,9 @@ class MainActivity : ComponentActivity() {
         setContent{
             RecipeTheme {
 
-                HomeScreen(onRecipeClick = {})
+                RecipeNavHost()
+
+
             }
         }
     }

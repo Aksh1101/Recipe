@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.aksh.recipe.presentation.components.ErrorMessage
 import com.aksh.recipe.presentation.components.LoadingIndicator
 import com.aksh.recipe.presentation.viewmodels.HomeViewModel
 import com.aksh.recipe.ui.theme.orange
@@ -61,36 +62,11 @@ fun HomeScreen(
             when{
                 viewModel.isLoading -> LoadingIndicator(strokeWidth = 1.dp)
 
-                viewModel.errorMessage != null -> {
-                    Box(modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center)
-                    {
-                        Text(
-                            viewModel.errorMessage ?: "",
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = orange
-                        )
+                viewModel.errorMessage != null -> ErrorMessage(
+                    errorMessage = viewModel.errorMessage,
+                    onRetry = viewModel::fetchRecipes
+                )
 
-                        Spacer(modifier = Modifier.height(24.dp))
-
-                        Button(onClick = {
-                            viewModel.fetchRecipes() },
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(horizontal = 24.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                contentColor = orange,
-                                containerColor = Color.White
-                            ))
-                        {
-                            Text(
-                                "Retry",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                    }
-                }
                 else -> {
 
                     LazyVerticalGrid(
